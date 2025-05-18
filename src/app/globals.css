@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+*{
+  margin: 0;
+  padding: 0;
+}
+
+
+
 /* app/global.css */
 body {
   margin: 0;
