@@ -1,0 +1,157 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGODB_URI")
+}
+
+model Post {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  content   String?
+  published Boolean  @default(false)
+}
+
+
+
+model Event {
+  id                 String   @id @default(auto()) @map("_id") @db.ObjectId
+  name               String   
+  slug               String   @unique
+  recommend          Boolean  @default(false)
+  startDate          DateTime
+  startTime          String?
+  mainImage          String?
+  imageZapierLink    String?
+  venueAddress       String?
+  venueNameFrontEnd  String?
+  venueNameBackEnd   String?
+  city               String?
+  bali               Boolean  @default(false)
+  neighborhood       String?
+  lineUp             String[]  // Array of Strings
+  genres             String[]  // Array of Strings
+  details            String?
+  minAge             Int?      // Should be an Integer
+  cost               Float?    // Should be a Float if numeric
+  promoterMail       String?  
+  websiteUrl         String?
+  ticketLink         String?
+  videoLink          String?
+  recurring          String?
+  currency           String?
+  eventsMap          String?
+  catchVenues        String[]  // Array of Strings
+  socialFbLink       String?
+  socialTwLink       String?
+  socialWtLink       String?
+  socialOtherLink    String?
+  meta               String?  
+  venue              String?   
+  guestlist          Boolean   @default(false)
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+}
+
+
+
+
+
+
+
+
+model Guestlist {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  fullName       String   
+  email          String   
+  phoneNumber    String
+  numberOfGuests Int      @default(1)
+  termsAccepted  Boolean
+  submittedBy    SubmittedBy
+  startDate      DateTime?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+enum SubmittedBy {
+  admin
+  user
+}
+
+
+
+model Hero {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String   @db.String
+  subTitle  String?  @db.String
+  image     String   @db.String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  slug      String   @db.String @unique 
+}
+
+
+
+
+
+
+model Venue {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  slug           String   @unique
+  location       String? 
+  venueMail      String?
+  date           DateTime?
+  time           String?
+  details        String?
+  summary        String?
+  eventAdmin     String?
+  promoterLink   String?
+  minAge         String?
+  cost           String?
+  mainImage      String?
+  video          String?
+  promoterMail   String?
+  facebookLink   String?
+  twitterLink    String?
+  whatsappLink   String?
+  venuesMap      String?
+  catchEvents    String[]  
+  meta           String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+
+
+
+
+
+
+
+
+model Gallery {
+  id           String  @id @default(auto()) @map("_id") @db.ObjectId
+  title        String   
+  slug         String   @unique
+  featureImage String
+  images       String[] 
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @default(now()) @map("updated_at")
+}
+
+
+
+
+
+model Ad {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  title    String
+  image    String  @map("image")
+  createdAt DateTime @default(now()) @map("createdAt") @db.Timestamp
+  updatedAt DateTime @updatedAt @map("updatedAt") @db.Timestamp
+  position Int @unique @map("position")
+}
+
